@@ -5,10 +5,12 @@
 <h1 class="h1">{{ title }}</h1>
 
 <ul class="grid">
-  {% for item in items %}
-    <li>
-      <a href="/plant/{{ item.id }}">
-        {% render 'server/components/card/card.liquid', item: item %}
+  {% for monster in monsters %}
+    <li class="paper">
+      <a href="/monster/{{ monster.id }}">
+      <p>{{monster.name}}</p>
+      <img src="{{monster.image}}" alt="" />
+        {% comment %} {% render 'server/components/card/card.liquid', item: item %} {% endcomment %}
       </a>
     </li>
   {% endfor %}

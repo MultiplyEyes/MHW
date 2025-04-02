@@ -1,3 +1,8 @@
+:root{
+  --paper-col: #D9CBC1;
+  --background: #5D4538;
+}
+
 header {
   padding: 1rem;
 }
@@ -5,3 +10,36 @@ header {
 footer {
   padding: 1rem;
 }
+
+body{
+  background-color: var(--background)
+
+}
+
+.paper {
+  position: relative;
+  padding: 1em;
+  width: 50%;
+  background-color: var(--paper-col);
+}
+
+.paper:before, .paper:after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  left: 0;
+  -webkit-clip-path: polygon(1% 0%, 4% 100%, 9% 0%, 13% 100%, 19% 1%, 21% 100%, 26% 5%, 30% 100%, 36% 2%, 43% 100%, 50% 1%, 52% 100%, 61% 0%, 69% 94%, 70% 0%, 76% 100%, 81% 0%, 84% 100%, 91% 0%, 97% 100%, 99% 3%);
+}
+
+.paper:before {
+  background-color:  var(--background);
+  top: -1;
+}
+
+.paper:after {
+  background-color: var(--paper-col);
+  bottom: -2px;
+}
+
+/* #5D4538 */

@@ -3,3 +3,23 @@
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
+
+img{
+  width: 250px;
+}
+
+li{
+  width: 130px;
+  padding: 1em;
+
+  img{
+    margin-top: 1em;
+    width: 100%;
+  }
+}
+
+div{
+  padding: 1rem;
+  width: 300px;
+
+}
