@@ -93,6 +93,25 @@ app.get('/', async (req, res) => {
   return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', monsters: monsters}));
 });
 
+app.get('/combat', async (req, res) => {
+  var challangerID = (Math.floor(Math.random() * 59) + 1);
+  if( challangerID == 46){
+    challangerID--;
+  }
+
+  if( challangerID == 47){
+    challangerID++;
+  }
+  const endpoint = baseURL + challangerID;
+
+  const response = await fetch(endpoint);
+  const monsterAll = await response.json();
+
+  const image = fotos[challangerID];
+
+  return res.send(renderTemplate('server/views/combat.liquid', { title: 'COMBAT', monsters: monsterAll, image: image, bob: challangerID}));
+});
+
 app.get('/monster/:id/', async (req, res) => {
   const id = req.params.id;
   const endpoint = baseURL + id;

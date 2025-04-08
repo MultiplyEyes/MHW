@@ -3,7 +3,25 @@
 {% block content %}
     <div class="paper">
         <h1 class="h1">{{ monster.name }}</h1>
-        <img src="{{image}}" alt="" />
+        <img id="monster" src="{{image}}" alt="" />
         <p>Damage type: {{monster.Damage}}</p>
     </div>
 {% endblock %}
+
+<script>
+    const box = document.getElementById('monster');
+
+    // Call the Web Animations API
+    box.animate(
+        [
+        { transform: 'translateX(0px)' },
+        { transform: 'translateX(300px)' }
+        ],
+        {
+        duration: 1000,
+        iterations: Infinity,
+        direction: 'alternate',
+        easing: 'ease-in-out'
+        }
+    );
+    </script>

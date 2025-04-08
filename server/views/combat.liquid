@@ -1,0 +1,29 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+
+<h1 class="h1">{{ title }}</h1>
+<h1>{{ bob }}</h1>
+
+
+ <div class="battle">
+  {% comment %} Monster 1 {% endcomment %}
+  <div class="paper combat">
+    <h1 class="h1">{{ monsters.id }}</h1>
+    <h1 class="h1">{{ monsters.name }}</h1>
+    <img src="{{image}}" alt="" />
+    <p>Damage type: {{ monsters.elements }}</p>
+    <p>Damage type: {{ monsters.elements }}</p>
+  </div>
+  
+  {% comment %} Monster 2 {% endcomment %}
+  <div class="paper combat">
+    <h1 class="h1">{{ monsters.name }}</h1>
+    <img src="{{image}}" alt="" />
+    <p>Damage type: {{ monsters.elements }}</p>
+    <p>Damage type: {{ monsters.elements }}</p>
+  </div>
+ </div>
+
+
+{% endblock %}

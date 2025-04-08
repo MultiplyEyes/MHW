@@ -3,8 +3,19 @@
   --background: #5D4538;
 }
 
+*{
+  font-style: none;
+}
+
+@font-face {
+  src: url(../../Fonts/test.ttf);
+  font-family: MH1;
+ 
+}
+
 header {
   padding: 1rem;
+  height: 50px;
 }
 
 footer {
@@ -12,6 +23,8 @@ footer {
 }
 
 body{
+  margin: 0;
+  padding: 0;
   background-color: var(--background)
 
 }
@@ -19,8 +32,12 @@ body{
 .paper {
   position: relative;
   padding: 1em;
-  width: 50%;
   background-color: var(--paper-col);
+  margin: auto;
+}
+
+div.paper{
+  width: 35vw;
 }
 
 .paper:before, .paper:after {
@@ -43,3 +60,11 @@ body{
 }
 
 /* #5D4538 */
+
+header.paper::before{
+  display: none;
+}
+
+.navbar li{
+  float: left;
+}
