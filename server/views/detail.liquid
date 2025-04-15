@@ -1,27 +1,93 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        function runAnimation() {
+            const monster = document.getElementById("monster");
+            if (!monster) return;
+            monster.animate(
+            [
+                { transform: "rotate(-5deg)" },
+                { transform: "rotate(5deg)" },
+            ],
+            {
+                duration: 200,
+                iterations: 5,
+                direction: "alternate",
+                easing: "ease-in-out",
+            }
+            );
+        }
+
+        function loopWithRandomDelay() {
+            runAnimation();
+
+            var randomDelay = Math.random() * 10000 + 5000;
+            setTimeout(loopWithRandomDelay, randomDelay);
+        }
+
+        loopWithRandomDelay();
+        });
+    </script>
     <div class="paper">
         <h1 class="h1">{{ monster.name }}</h1>
         <img id="monster" src="{{image}}" alt="" />
-        <p>Damage type: {{monster.Damage}}</p>
+        <p class="description">{{monster.description}}</p>
+        <div class="container">
+            <div class="weak">
+                <h2>Size: {{monster.type}}</h2>
+                <h2>Species: {{monster.species}}</h2>
+            </div>
+            <div class="weak">
+                <h2>Element:</h2>
+                {% for element in monster.elements %}
+                    <p class="element">
+                        {{ element }}
+                    </p>
+                    
+                    {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                {% endfor %}
+            </div>
+
+            <div class="weak">
+                <h2>Ailments:</h2>
+                {% for ailments in monster.ailments %}
+                    <p class="element">
+                        {{ ailments.name }}
+                    </p>
+                    
+                    {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                {% endfor %}
+            </div>
+            <div class="weak">
+                <h2>Weaknesses:</h2>
+                {% for weakness in monster.weaknesses %}
+                    <p class="element">
+                        {{weakness.element}}
+                        :
+                        {% for i in (1..5) %}
+                            {% if i == weakness.stars %}
+                                ⭐
+                            {% break %}
+                            {% else %}
+                            ⭐
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    
+                    {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                {% endfor %}
+            </div>
+            <div class="weak">
+                <h2>Resistances:</h2>
+                {% for Resist in monster.resistances %}
+                    <p class="element">{{Resist.element}}: ❌</p>
+                    {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 
-<script>
-    const box = document.getElementById('monster');
 
-    // Call the Web Animations API
-    box.animate(
-        [
-        { transform: 'translateX(0px)' },
-        { transform: 'translateX(300px)' }
-        ],
-        {
-        duration: 1000,
-        iterations: Infinity,
-        direction: 'alternate',
-        easing: 'ease-in-out'
-        }
-    );
-    </script>

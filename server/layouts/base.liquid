@@ -17,40 +17,20 @@
 </head>
 
 <body>
-  <script>
-    function runAnimation() {
-      document.getElementById("monster").animate(
-        [
-          { transform: "rotate(-45deg)"},
-          { transform: "rotate(45deg)"},
-        ],
-        {
-          duration: 200,
-          iterations: 10,
-          direction: "alternate",    
-        },
-      );
-    }
 
-    function loopWithRandomDelay() {
-      console.log("hello world");
-        runAnimation();
-
-        const randomDelay = Math.random() * 3000 + 1000; // between 1s and 4s
-        setTimeout(loopWithRandomDelay, randomDelay);
-    }
-
-    loopWithRandomDelay();
-  </script>
   <header class="paper">
     <nav>
       <ul class="navbar">
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/combat">Combat</a>
-        </li>
+        <a href="/">
+          <li class="paper">
+            <p>Home</p>
+          </li>
+        </a>
+        <a href="/combat">
+          <li class="paper">
+            <p>Quiz</p>
+          </li>
+        </a>
       </ul>
     </nav>
   </header>

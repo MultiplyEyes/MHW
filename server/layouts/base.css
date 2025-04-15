@@ -1,6 +1,8 @@
 :root{
   --paper-col: #D9CBC1;
   --background: #5D4538;
+  --background-2: #7d6253;
+  --light-paper: #e5dfdd;
 }
 
 *{
@@ -37,7 +39,7 @@ body{
 }
 
 div.paper{
-  width: 35vw;
+  width: 600px;
 }
 
 .paper:before, .paper:after {
@@ -64,7 +66,67 @@ div.paper{
 header.paper::before{
   display: none;
 }
+.navbar{
+  li.paper{
+    background-color: var(--light-paper);
+    text-align: center;
+    margin-left: 10px;
+  }
+  
+   li.paper:before, li.paper:after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    left: 0;
+    -webkit-clip-path: polygon(1% 0%, 4% 100%, 9% 0%, 13% 100%, 19% 1%, 21% 100%, 26% 5%, 30% 100%, 36% 2%, 43% 100%, 50% 1%, 52% 100%, 61% 0%, 69% 94%, 70% 0%, 76% 100%, 81% 0%, 84% 100%, 91% 0%, 97% 100%, 99% 3%);
+  }
+  
+  li.paper:before {
+    background-color:  var(--paper-col);
+    top: -1;
+  }
+  
+  li.paper:after {
+    background-color: var(--light-paper);
+    bottom: -2px;
+  }
+}
 
 .navbar li{
   float: left;
 }
+
+.paper.combat{
+  width: 300px;
+}
+
+.options{
+  height: fit-content;
+  display: grid;
+}
+
+.options>*{
+  display: grid;
+  grid-template-rows: 100px;
+  grid-template-columns:repeat(3, 100px);
+}
+
+.options  button{
+  margin-bottom: 10px;
+  border: none;
+
+}
+
+.options  button:hover{
+  transition: 0.3s;
+  transform: scale(1.1);
+}
+
+.quiz{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
