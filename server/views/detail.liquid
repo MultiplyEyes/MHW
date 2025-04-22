@@ -2,7 +2,6 @@
 
 {% block content %}
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
         function runAnimation() {
             const monster = document.getElementById("monster");
             if (!monster) return;
@@ -20,15 +19,56 @@
             );
         }
 
-        function loopWithRandomDelay() {
-            runAnimation();
+       
 
-            var randomDelay = Math.random() * 10000 + 5000;
-            setTimeout(loopWithRandomDelay, randomDelay);
-        }
+        navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then(function (stream) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const audioContext = new AudioContext();
 
-        loopWithRandomDelay();
+            const analyser = audioContext.createAnalyser();
+            const microphone = audioContext.createMediaStreamSource(stream);
+            const javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+            analyser.smoothingTimeConstant = 0.8;
+            analyser.fftSize = 1024;
+
+            microphone.connect(analyser);
+            analyser.connect(javascriptNode);
+            javascriptNode.connect(audioContext.destination);
+
+            javascriptNode.onaudioprocess = function () {
+            const array = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(array);
+
+            let values = 0;
+            const length = array.length;
+
+            for (let i = 0; i < length; i++) {
+                values += array[i];
+            }
+
+            const average = values / length;
+
+            if (average > 10) {
+                onLoudVoice(average); 
+            }
+            };
+        })
+        .catch(function (err) {
+            console.error("Microphone access error:", err);
         });
+
+        let lastTrigger = 0;
+
+        function onLoudVoice(volume) {
+            const now = Date.now();
+            if (now - lastTrigger > 1000) {
+                runAnimation();
+                lastTrigger = now;
+            }
+        }
     </script>
     <div class="paper">
         <h1 class="h1">{{ monster.name }}</h1>
@@ -42,11 +82,9 @@
             <div class="weak">
                 <h2>Element:</h2>
                 {% for element in monster.elements %}
-                    <p class="element">
-                        {{ element }}
-                    </p>
-                    
-                    {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                    {{ element }}
+                  {% else %}
+                  <p>none</p>
                 {% endfor %}
             </div>
 
@@ -56,8 +94,9 @@
                     <p class="element">
                         {{ ailments.name }}
                     </p>
-                    
                     {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                    {% else %}
+                    <p>none</p>
                 {% endfor %}
             </div>
             <div class="weak">
@@ -75,7 +114,8 @@
                             {% endif %}
                         {% endfor %}
                     </p>
-                    
+                    {% else %}
+                    <p>none</p>
                     {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
                 {% endfor %}
             </div>
@@ -84,6 +124,8 @@
                 {% for Resist in monster.resistances %}
                     <p class="element">{{Resist.element}}: ❌</p>
                     {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                    {% else %}
+                    <p>none</p>
                 {% endfor %}
             </div>
         </div>

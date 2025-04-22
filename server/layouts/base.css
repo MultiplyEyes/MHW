@@ -9,12 +9,6 @@
   font-style: none;
 }
 
-@font-face {
-  src: url(../../Fonts/test.ttf);
-  font-family: MH1;
- 
-}
-
 header {
   padding: 1rem;
   height: 50px;
