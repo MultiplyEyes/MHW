@@ -1,112 +1,112 @@
-# API @cmda-minor-web 2024 - 2025
-Het web is een geweldige plek en de beschikbare technologieën ervan zijn vandaag de dag krachtiger dan ooit tevoren.
-De kracht van het web ligt in het feit dat het een platform is dat voor iedereen beschikbaar is en dat het gebaseerd is
-op open standaarden. De technologieën worden ontworpen en gespecificeerd op basis van consensus en zijn niet in handen
-van één enkele entiteit.
+# API Readme
 
-Desondanks zijn er veel mensen en bedrijven die vinden dat het internet niet voldoet aan hun behoeften. Dit blijkt uit
-de pogingen van grote techbedrijven om hun eigen afgesloten ecosystemen te creëren. Ze streven hiermee naar controle over
-zowel de gebruikerservaring als de gegenereerde data.
+De readme document voor de API opdracht.
 
-**In dit vier weken durende vak zullen we de kracht van het web ervaren en kijken hoe we (mobiele) web apps kunnen maken die
-net zo aantrekkelijk zijn als native mobiele apps. We beginnen met het maken van een server-side gerenderde applicatie
-waarbij we geleidelijk de gebruikerservaring verbeteren met relevante beschikbare web API's.**
+## dag week 1 dag 2(Technisch gezien mijn eerset dag)
 
-[TLDR; hoe zet ik mijn project op?](#Inrichten-ontwikkelomgeving)
+Ik heb besloten de monster hunter world API te gebruiken voor mijn API opdracht. De api heeft veel opties maar ik gefocused voor de monster van de API.
 
-## Doelen
+Eerst heb ik de API opgeroept met de hulp van Declan. Kwam uiteindelijk met deze code.
 
-Na deze cursus zul je:
+ ```
+app.get('/', async (req, res) => {
+  const response = await fetch(baseURL);
+  const monsterAll = await response.json();
+  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', monsters: monsters}));
+}); 
+```
 
-- In staat zijn om een server-side gerenderde applicatie te maken.
-- In staat zijn om een enerverende gebruikerservaring te creëren.
-- Een breder begrip hebben van het web en zijn mogelijkheden.
+Na de API pullen en dan inde index gooien heb ik een probleem gemerkt met de API. De monster hebben geen foto's. Ik heb hiervoor een apparte Json bestand gemaakt met de hulp van Declan die CHAT.GPT aanraade om het simple te houden. jammer genoeg CHAT.GPT had de foto's niet goed gedaan dus ik heb de json handmatig aangepast.
 
-## Opdracht
+ ```
+const fotos = 
+{
+  "1": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-aptonoth_icon.png",
+  "2": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-jagras_icon2.png",
+  "3": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-icono_mernos.png",
+  "4": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-vespoid_icon2.png",
+  "5": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-mosswine_icon2.png",
+  "6": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-apceros_icon.png",
+  "7": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-kestodon_male_icon.png",
+  "8": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-noios_icon2.png",
+  "9": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-gajau_icon.png",
+  "10": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-kelbi_icon2.png",
+  "11": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-raphinos_icon2.png",
+  "12": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-shamos_icon2.png",
+  "13": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-girros_icon.png",
+  "14": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-hornetaur_icon2.png",
+  "15": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-gastodon_icon.png",
+  "16": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-barnos_icon2.png",
+  "17": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-great_jagras_icon.png",
+  "18": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-kulu-ya-ku_icon.png",
+  "19": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/gthumbnails/mhw-pukei-pukei_icon.png",
+  "20": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/MHW-Barroth_Icon.png",
+  "21": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-jyuratodus_icon.png",
+  "22": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-tobi-kadachi_icon.png",
+  "23": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-anjanath_icon.png",
+  "24": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-azure_rathalos_icon.png",
+  "25": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-bazelgeuse_icon.png",
+  "26": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-behemoth_icon.png",
+  "27": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-deviljho_icon.png",
+  "28": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-diablos_icon.png",
+  "29": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-black_diablos_icon.png",
+  "30": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-dodogama_icon.png",
+  "31": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-great_girros_icon2.png",
+  "32": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-kirin_icon.png",
+  "33": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-kulve_taroth_icon.png",
+  "34": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-kushala_daora_icon.png",
+  "35": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-lavasioth_icon.png",
+  "36": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-legiana_icon.png",
+  "37": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-lunastra_icon2.png",
+  "38": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-nergigante_icon.png",
+  "39": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-odogaron_icon.png",
+  "40": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-paolumu_icon.png",
+  "41": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-radobaan_icon.png",
+  "42": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-rathalos_icon.png",
+  "43": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-rathian_icon.png",
+  "44": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-pink_rathian_icon2.png",
+  "45": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-teostra_icon.png",
+  "48": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-tzitzi-ya-ku_icon2.png",
+  "49": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-uragaan_icon.png",
+  "50": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-vaal_hazak_icon.png",
+  "51": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-xeno'jiiva_icon.png",
+  "52": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-zorah_magdaros_icon.png",
+  "53": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhw-leshen_icon.png",
+  "54": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/ancient_leshen_icon.png",
+  "55": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/gthumbnails/mhwi-safi'jiiva_icon.png",
+  "56": "https://i.pinimg.com/originals/bc/88/5a/bc885ab73ad470142986bcee926ed65e.png",
+  "57": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhwi-rajang_icon.png",
+  "58": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/gthumbnails/mhwi-viper_tobi-kadachi_icon.png",
+  "59": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhwi-namielle_icon.png",
+  "60": "https://monsterhunterworld.wiki.fextralife.com/file/Monster-Hunter-World/mhwi-zinogre_icon.png"
+};
+```
 
-In dit vak zullen we een van de meest voorkomende app-concepten van vandaag
-gebruiken en ontdekken dat we deze kunnen maken met moderne webtechnologie
-met als doel om een rijke gebruikerservaring creëeren.
+En dan met help van Declan heb ik de Json kunnen kopelen met de APi.
 
-Randvoorwaarden:
+```
+    app.get('/', async (req, res) => {
+    const response = await fetch(baseURL);
+    const monsterAll = await response.json();
 
-- Minimaal een overzichts- en detailpagina
-- Gebouwd in TinyHTTP + Liquid
-- Minimaal een content API
-- Minimaal twee Web API's
+    const monsters = monsterAll.map(monster => {
+        return {
+        ...monster,
+        image: fotos[monster.id]
+        }
+    })
+    return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', monsters: monsters}));
+    });
+```
 
-Voorbeelden:
+Dankzij dit had ik de uiteindijk de resultaat dat hoopte. met alle foto's op de goede monster.
 
-- Maak je eigen streamingplatform (Netflix/Spotify).
-- Maak je eigen doom-scroll-app (Instagram/TikTok).
-- Maak je eigen chatapplicatie (WhatsApp/Signal).
-- Een andere app die je zelf leuk vindt...
+<video src="Readme/IndexRecording.mp4" width="auto" height="400" controls autoplay loop></video>
 
-Voorbeeld content API's die je kan gebruiken:
+---
 
-- [MovieDB API](https://developer.themoviedb.org/reference/intro/getting-started)
-- [Rijksmuseum API](https://data.rijksmuseum.nl/object-metadata/api/)
-- [Spotify API](https://developer.spotify.com/documentation/web-api)
-- ...
+## week 2 dag 1
 
-Voorbeelden van Web API's die je kan gebruiken:
+Op ging verder werken aan de detail page. Zorgen dat ik de basis informatie er op heb. en een animatie toevoegen aan de fote. de werk op een interval.
 
-- [Page Transition API voor animaties tusse npagina's](https://developer.mozilla.org/en-US/docs/Web/API/Page_Transitions_API)
-- [Web Animations API voor complexe animaties](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
-- [Service Worker API voor installable web apps](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
-- [Web Push API voor push notifications](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
-- [Server sent events voor realtime functionaliteit](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
-- [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API)
-- [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-- [Web Share API voor sharen van content binnen de context van de gebruiker](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share)
-- ...
-
-De lijst is eindeloos, laat je vooral inspireren op de overzichtspagina van [MDN](https://developer.mozilla.org/en-US/docs/Web/API).
-
-## Beoordeling
-De beoordelingscriteria zijn te vinden op [DLO](https://dlo.mijnhva.nl/d2l/le/content/609470/Home)
-
-## Planning
-
-| Planning                   | Maandag               | Dinsdag            | Vrijdag                                     |
-|----------------------------|-----------------------|--------------------|---------------------------------------------|
-| Week 1 - Kickoff & concept | Introductie ne uitleg | Workshops          | Feedback gesprekken                         |
-| Week 2 - The baseline      | College + workshops   | Workshops          | Feedback gesprekken                         |
-| Week 3 - Enhance           | College + workshops   | Workshops          | Feedback gesprekken(*DONDERDAG*)            |
-| Week 4 - Enhance & wrap up | Tweede paasdag        | Individuele vragen | Beoordelingsgesprekken(*DONDERDAG/VRIJDAG*) |
-
-## Bronnen
-
-- [Nodejs.org](https://nodejs.org/en/), voor de installatie van NodeJS op jouw systeem, kies voor NodeJS 22.13.1 Long Term Support. Dit is de meest stabiele versie van NodeJS, welke ondersteund wordt met goede documentatie.
-- [VSCode How To Open Terminal](https://www.youtube.com/watch?v=OmQhOnBzg_k), om iemand de terminal te zien openen en gebruiken op Youtube.
-- [Introduction to NodeJS](https://nodejs.dev/en/learn/), voor een in depth introductie met de NodeJS ontwikkelomgeving. Let op: dit is best een technisch verhaal. De eerste zes pagina’s zijn interessant.
-- Om serverside te kunnen renderen maken we gebruik van [TinyHttp](https://github.com/tinyhttp).
-- Voor templating maken we gebruik van [LiquidJS](https://liquidjs.com/).
-- [Liquid Filters](https://liquidjs.com/filters/overview.html)
-- Voor build tooling(CSS en JS) maken we gebruik [Vite](https://vitejs.dev/).
-- [Using the Fetch API @ MDN](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
-- [JSON.parse() @ MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
-- [Partial commits in GitHub Desktop](https://github.blog/news-insights/product-news/partial-commits-in-github-for-windows/)
-- [Committing and reviewing changes to your project in GitHub Desktop](https://docs.github.com/en/desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project-in-github-desktop)
-
-## Inrichten ontwikkelomgeving
-
-1. Navigeer naar [nodejs.org](https://nodejs.org/en/) en installeer de NodeJS ontwikkelomgeving. Kies voor _NodeJS 22.13.1 with long-term support_, download de benodigde bestanden en doorloop het installatieproces.
-
-2. Fork daarna [deze repository](https://github.com/cmda-minor-web/API-2425) en *clone* deze op jouw computer.
-
-3. Open deze repository in je code editor.
-
-4. Open de _Terminal_ in Visual Studio Code door de toetscombinatie `` ^` `` (control + `) te gebruiken. Er opent een terminalscherm in de hoofdmap van jouw project.
-
-5. Voer in de terminal het commando `npm install` uit, door het in te typen en op enter te drukken. Je gebruikt _NPM_, de _NodeJS Package Manager_ om alle _afhankelijkheden_ voor dit project te installeren. NPM is een veelgebruikte package manager in frontend land. Voor dit project gebruiken we _TinyHTTP_ (om een _server_ te maken) en _Liquid_ (om HTML te _renderen_).
-- (Optioneel) Na de installatie is de map `node_modules` aangemaakt, en gevuld met allerlei _packages_. Scroll eens door deze map heen; vele honderden *open source* ontwikkelaars hebben de packages die je ziet gebouwd en die mag je gratis gebruiken. Ontwikkelen in NodeJS is *standing on the shoulders of giants*.
-
-### Project starten en stoppen
-Start het voorbeeldproject op door in de terminal het commando `npm run dev` uit te voeren. Als het goed is, komt een melding te staan over het opstarten van de server: `Server available on http://localhost:3000` — Open deze URL in je browser. Let op: Vite draait op een andere poort dan TinyHTTP, dus je moet de poort van TinyHTTP gebruiken: http://localhost:3000
-
-Als het werkt, zet je je server weer uit door in de terminal de toetscombinatie `^c` (control + c) in te voeren. Deze toetsencombinatie wordt in de terminal gebruikt om de huidige taak te stoppen en *controle* (vandaar de c) terug te krijgen van het programma.
-
-- Optioneel: Volg het [NodeJS ‘Hello World’ voorbeeld](https://medium.com/@mohammedijas/hello-world-in-node-js-b333275ddc89)
-- Optioneel, iets technischer: Lees de eerste vijf delen van [Introduction to Node](https://nodejs.dev/en/learn/) als je een meer in-depth introductie wilt met de NodeJS ontwikkelomgeving.
-
+Heb uiteindelijk gelukt met .Animate
