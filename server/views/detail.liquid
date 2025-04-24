@@ -2,100 +2,100 @@
 
 {% block content %}
     <script>
-    function runAnimation(volume) {
-        const monster = document.getElementById("monster");
-        if (!monster) return;
+        function runAnimation(volume) {
+            const monster = document.getElementById("monster");
+            if (!monster) return;
 
-        const minDuration = 50;
-        const maxDuration = 500;
-        const normalizedVolume = Math.min(volume / 100, 1); // normalize to 0-1 range
-        const duration = maxDuration - normalizedVolume * (maxDuration - minDuration);
+            const minDuration = 50;
+            const maxDuration = 500;
+            const normalizedVolume = Math.min(volume / 100, 1); // normalize to 0-1 range
+            const duration = maxDuration - normalizedVolume * (maxDuration - minDuration);
 
-        monster.animate(
-            [
-                { transform: "rotate(-5deg)" },
-                { transform: "rotate(5deg)" },
-            ],
-            {
-                duration: duration,
-                iterations: 5,
-                direction: "alternate",
-                easing: "ease-in-out",
+            monster.animate(
+                [
+                    { transform: "rotate(-5deg)" },
+                    { transform: "rotate(5deg)" },
+                ],
+                {
+                    duration: duration,
+                    iterations: 5,
+                    direction: "alternate",
+                    easing: "ease-in-out",
+                }
+            );
+        }
+
+        function scaryMonster() {
+            window.alert("You scared Him")
+            window.location.href = "/";
+        }
+
+        navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then(function (stream) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioContext = new AudioContext();
+
+                const analyser = audioContext.createAnalyser();
+                const microphone = audioContext.createMediaStreamSource(stream);
+                const javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+                analyser.smoothingTimeConstant = 0.8;
+                analyser.fftSize = 1024;
+
+                microphone.connect(analyser);
+                analyser.connect(javascriptNode);
+                javascriptNode.connect(audioContext.destination);
+
+                javascriptNode.onaudioprocess = function () {
+                    const array = new Uint8Array(analyser.frequencyBinCount);
+                    analyser.getByteFrequencyData(array);
+
+                    let values = 0;
+                    const length = array.length;
+
+                    for (let i = 0; i < length; i++) {
+                        values += array[i];
+                    }
+
+                    const average = values / length;
+
+                    if (average > 70) {
+                        onLoudVoice(average);
+                        console.log(average);
+                    }
+
+                    if (average > 100){
+                        console.log("IANJDSKANDKD")
+                        onScream();
+                    }
+                };
+            })
+            .catch(function (err) {
+                console.error("Microphone access error:", err);
+            });
+
+        let lastTrigger = 0;
+
+        function onLoudVoice(volume) {
+            const now = Date.now();
+            if (now - lastTrigger > 100) {
+                runAnimation(volume);
+                lastTrigger = now;
             }
-        );
-    }
-
-    function scaryMonster() {
-        window.alert("You scared Him")
-        window.location.href = "/";
-
-    }
-
-    navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then(function (stream) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            const audioContext = new AudioContext();
-
-            const analyser = audioContext.createAnalyser();
-            const microphone = audioContext.createMediaStreamSource(stream);
-            const javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
-
-            analyser.smoothingTimeConstant = 0.8;
-            analyser.fftSize = 1024;
-
-            microphone.connect(analyser);
-            analyser.connect(javascriptNode);
-            javascriptNode.connect(audioContext.destination);
-
-            javascriptNode.onaudioprocess = function () {
-                const array = new Uint8Array(analyser.frequencyBinCount);
-                analyser.getByteFrequencyData(array);
-
-                let values = 0;
-                const length = array.length;
-
-                for (let i = 0; i < length; i++) {
-                    values += array[i];
-                }
-
-                const average = values / length;
-
-                if (average > 70) {
-                    onLoudVoice(average);
-                    console.log(average);
-                }
-
-                if (average > 110){
-                    console.log("IANJDSKANDKD")
-                    onScream();
-                }
-            };
-        })
-        .catch(function (err) {
-            console.error("Microphone access error:", err);
-        });
-
-    let lastTrigger = 0;
-
-    function onLoudVoice(volume) {
-        const now = Date.now();
-        if (now - lastTrigger > 100) {
-            runAnimation(volume);
-            lastTrigger = now;
         }
-    }
 
-    let lastTriggerAgain = 0;
+        let lastTriggerAgain = 0;
 
-    function onScream(){
-        const now = Date.now();
-        if (now - lastTriggerAgain > 100) {
-            scaryMonster();
-            lastTriggerAgain = now;
+        function onScream(){
+            const now = Date.now();
+            if (now - lastTriggerAgain > 100) {
+                scaryMonster();
+                lastTriggerAgain = now;
+            }
         }
-    }
     </script>
+
     <div class="paper page">
         <h1 class="h1">{{ monster.name }}</h1>
         <div class="wrapper">
@@ -143,8 +143,7 @@
                         {% endfor %}
                     </p>
                     {% else %}
-                    <p>none</p>
-                    {% comment %} <p>{{weakness.stars}}</p> {% endcomment %}
+                        <p>none</p>
                 {% endfor %}
             </div>
             <div class="weak">
