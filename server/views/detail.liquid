@@ -2,26 +2,53 @@
 
 {% block content %}
     <script>
-        function runAnimation() {
-            const monster = document.getElementById("monster");
-            if (!monster) return;
-            monster.animate(
+    function runAnimation(volume) {
+        const monster = document.getElementById("monster");
+        if (!monster) return;
+
+        const minDuration = 50;
+        const maxDuration = 500;
+        const normalizedVolume = Math.min(volume / 100, 1); // normalize to 0-1 range
+        const duration = maxDuration - normalizedVolume * (maxDuration - minDuration);
+
+        monster.animate(
             [
                 { transform: "rotate(-5deg)" },
                 { transform: "rotate(5deg)" },
             ],
             {
-                duration: 200,
+                duration: duration,
                 iterations: 5,
                 direction: "alternate",
                 easing: "ease-in-out",
             }
-            );
-        }
+        );
+    }
 
-       
+    function scaryMonster() {
+        window.location.href = "/";
+        // const monster = document.getElementById("monster");
+        // if (!monster) return;
 
-        navigator.mediaDevices
+        // const duration = 1000; // duration in milliseconds
+
+        // monster.animate(
+        //     [
+        //         { transform: "scale(1)" },
+        //         { transform: "scale(10)" },
+        //     ],
+        //     {
+        //         duration: duration,
+        //         iterations: 5,
+        //         direction: "alternate",
+        //         easing: "ease-in-out",
+        //     }
+        // );
+
+
+    }
+
+    navigator.mediaDevices
         .getUserMedia({ audio: true })
         .then(function (stream) {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -39,40 +66,58 @@
             javascriptNode.connect(audioContext.destination);
 
             javascriptNode.onaudioprocess = function () {
-            const array = new Uint8Array(analyser.frequencyBinCount);
-            analyser.getByteFrequencyData(array);
+                const array = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(array);
 
-            let values = 0;
-            const length = array.length;
+                let values = 0;
+                const length = array.length;
 
-            for (let i = 0; i < length; i++) {
-                values += array[i];
-            }
+                for (let i = 0; i < length; i++) {
+                    values += array[i];
+                }
 
-            const average = values / length;
+                const average = values / length;
 
-            if (average > 10) {
-                onLoudVoice(average); 
-            }
+                if (average > 70) {
+                    onLoudVoice(average);
+                    console.log(average);
+                }
+
+                if (average > 110){
+                    console.log("IANJDSKANDKD")
+                    onScream();
+                }
             };
         })
         .catch(function (err) {
             console.error("Microphone access error:", err);
         });
 
-        let lastTrigger = 0;
+    let lastTrigger = 0;
 
-        function onLoudVoice(volume) {
-            const now = Date.now();
-            if (now - lastTrigger > 1000) {
-                runAnimation();
-                lastTrigger = now;
-            }
+    function onLoudVoice(volume) {
+        const now = Date.now();
+        if (now - lastTrigger > 100) {
+            runAnimation(volume);
+            lastTrigger = now;
         }
+    }
+
+    let lastTriggerAgain = 0;
+
+    function onScream(){
+        const now = Date.now();
+        if (now - lastTriggerAgain > 100) {
+            scaryMonster();
+            lastTriggerAgain = now;
+        }
+    }
     </script>
-    <div class="paper">
+    <div class="paper page">
         <h1 class="h1">{{ monster.name }}</h1>
-        <img id="monster" src="{{image}}" alt="" />
+        <div class="wrapper">
+            <img id="monster" src="{{image}}" alt="" />
+        </div>
         <p class="description">{{monster.description}}</p>
         <div class="container">
             <div class="weak">
