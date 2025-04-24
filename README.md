@@ -68,8 +68,7 @@ Deze code verbind id van monster met de fotos Json.
 
 Dankzij dit had ik de uiteindijk de resultaat dat hoopte. met alle foto's op de goede monster.
 
-<video src="Readme/IndexRecording.mp4" width="auto" height="400" controls autoplay loop></video>
-
+![example](/Readme/Read.png)
 ---
 
 ## week 2 dag 1
